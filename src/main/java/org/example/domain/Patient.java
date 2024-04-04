@@ -1,16 +1,18 @@
 package org.example.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Patient {
+public class Patient implements Serializable {
+    private int id;
     private String name;
     private String lastName;
     private int age;
     private String gender;
     private String address;
-    private int phoneNumber;
+    private String phoneNumber;
 
-    public Patient(String name, String lastName, int age, String gender, String address, int phoneNumber) {
+    public Patient(int id, String name, String lastName, int age, String gender, String address, String phoneNumber) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
@@ -59,12 +61,20 @@ public class Patient {
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

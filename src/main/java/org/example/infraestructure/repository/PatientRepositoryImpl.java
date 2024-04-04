@@ -1,59 +1,60 @@
 package org.example.infraestructure.repository;
 
 import org.example.domain.Appointment;
-import org.example.interfaces.AppointmentRepository;
+import org.example.domain.Patient;
+import org.example.interfaces.PatientRepository;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AppointmentRepositoryImpl implements AppointmentRepository {
-    private static final String FILE_NAME = "appointments.dat";
+public class PatientRepositoryImpl implements PatientRepository {
+    private static final String FILE_NAME = "patients.dat";
 
     @Override
-    public List<Appointment> findAll() {
+    public List<Patient> findAll() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-            return (ArrayList<Appointment>) ois.readObject();
+            return (ArrayList<Patient>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             return new ArrayList<>();
         }
     }
     @Override
-    public Appointment findById(int id) {
+    public Patient findById(int id) {
         return findAll().stream()
                 .filter(p -> p.getId() == id)
                 .findFirst()
                 .orElse(null);
     }
     @Override
-    public void save(Appointment appointment) {
-        List<Appointment> appointments = findAll();
-        appointments.add(appointment);
-        saveAll(appointments);
+    public void save(Patient patient) {
+        List<Patient> patients = findAll();
+        patients.add(patient);
+        saveAll(patients);
     }
 
     @Override
-    public void update(Appointment appointment) {
-        List<Appointment> appointments = findAll();
-        appointments = appointments.stream()
-                .map(p -> p.getId() == appointment.getId() ? appointment : p)
+    public void update(Patient patient) {
+        List<Patient> patients = findAll();
+        patients = patients.stream()
+                .map(p -> p.getId() == patient.getId() ? patient : p)
                 .collect(Collectors.toList());
-        saveAll(appointments);
+        saveAll(patients);
     }
 
     @Override
     public void delete(int id) {
-        List<Appointment> appointments = findAll();
-        appointments = appointments.stream()
+        List<Patient> patients = findAll();
+        patients = patients.stream()
                 .filter(p -> p.getId() != id)
                 .collect(Collectors.toList());
-        saveAll(appointments);
+        saveAll(patients);
     }
 
-    private void saveAll(List<Appointment> appointments) {
+    private void saveAll(List<Patient> patients) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
-            oos.writeObject(appointments);
+            oos.writeObject(patients);
         } catch (IOException e) {
             e.printStackTrace();
         }
