@@ -13,6 +13,7 @@ public class Patient implements Serializable {
     private String phoneNumber;
 
     public Patient(int id, String name, String lastName, int age, String gender, String address, String phoneNumber) {
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.age = age;
@@ -80,12 +81,13 @@ public class Patient implements Serializable {
     @Override
     public String toString() {
         return "Patient{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }
